@@ -1,5 +1,6 @@
 === ongoing ===
 
+- Added EntryLanguagePublish model
 
 === 0.1 ===
 
