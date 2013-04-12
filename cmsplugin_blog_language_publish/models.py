@@ -27,7 +27,7 @@ class EntryLanguagePublish(models.Model):
         choices=settings.LANGUAGES,
     )
 
-    pubished = models.BooleanField(
+    published = models.BooleanField(
         verbose_name=_('Published'),
         default=False,
     )
