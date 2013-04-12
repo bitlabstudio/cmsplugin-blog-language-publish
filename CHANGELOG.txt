@@ -1,6 +1,8 @@
 === ongoing ===
 
 - Added EntryLanguagePublish model
+- Patched EntryAdmin
+- added get_published_entry template tag
 
 === 0.1 ===
 
