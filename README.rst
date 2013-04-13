@@ -17,7 +17,7 @@ You need to install the following prerequisites in order to use this app::
 
 If you want to install the latest stable release from PyPi::
 
-    $ pip install cmsplugin-blog-language-publish
+    $ pip install cmsplugin-blog-language-publish  (not available by now)
 
 If you feel adventurous and want to install the latest commit from GitHub::
 
