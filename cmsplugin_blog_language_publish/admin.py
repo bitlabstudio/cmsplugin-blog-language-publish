@@ -6,7 +6,6 @@ from django.utils.translation import get_language
 from cmsplugin_blog.models import Entry
 from cmsplugin_blog.admin import EntryAdmin, EntryForm
 
-from simple_translation.admin import TranslationAdmin
 from simple_translation.translation_pool import translation_pool
 from simple_translation.utils import get_preferred_translation_from_lang
 
@@ -77,7 +76,7 @@ class CustomEntryForm(EntryForm):
         return super(CustomEntryForm, self).save(*args, **kwargs)
 
 
-class CustomEntryAdmin(TranslationAdmin, EntryAdmin):
+class CustomEntryAdmin(EntryAdmin):
     """
     Custom admin for the ``Entry`` model.
 

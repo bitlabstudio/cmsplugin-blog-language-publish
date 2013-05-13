@@ -1,5 +1,7 @@
 === ongoing ===
 
+- fixed class inheritance of CustomEntryAdmin
+
 === 0.1.1 ===
 
 - fixed CustomEntryAdmin
