@@ -1,10 +1,14 @@
 """Admin classes for the ``cmsplugin_blog_language_publish`` app."""
 from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils.translation import get_language
 
 from cmsplugin_blog.models import Entry
 from cmsplugin_blog.admin import EntryAdmin, EntryForm
+
+from simple_translation.admin import TranslationAdmin
 from simple_translation.translation_pool import translation_pool
+from simple_translation.utils import get_preferred_translation_from_lang
 
 from .models import EntryLanguagePublish
 
@@ -73,7 +77,7 @@ class CustomEntryForm(EntryForm):
         return super(CustomEntryForm, self).save(*args, **kwargs)
 
 
-class CustomEntryAdmin(EntryAdmin):
+class CustomEntryAdmin(TranslationAdmin, EntryAdmin):
     """
     Custom admin for the ``Entry`` model.
 
@@ -86,6 +90,10 @@ class CustomEntryAdmin(EntryAdmin):
     list_display = ('title', 'languages', 'author', 'pub_date')
     list_editable = ()
     list_filter = ('pub_date', )
+
+    def title(self, obj):
+        lang = get_language()
+        return get_preferred_translation_from_lang(obj, lang).title
 
     def save_model(self, request, obj, form, change):
         """
