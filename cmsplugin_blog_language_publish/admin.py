@@ -2,6 +2,7 @@
 from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import get_language
+from django.utils.translation import ugettext_lazy as _
 
 from cmsplugin_blog.models import Entry
 from cmsplugin_blog.admin import EntryAdmin, EntryForm
@@ -80,19 +81,36 @@ class CustomEntryAdmin(EntryAdmin):
     """
     Custom admin for the ``Entry`` model.
 
-    We cannot display the ``is_published`` field in the list view any more
-    because we would need to show one field per language now and that could get
-    quite messy when there are many languages.
-
     """
     form = CustomEntryForm
-    list_display = ('title', 'languages', 'author', 'pub_date')
+    list_display = ('title', 'languages', 'author', 'pub_date',
+                    'is_published_lang')
     list_editable = ()
     list_filter = ('pub_date', )
 
     def title(self, obj):
         lang = get_language()
         return get_preferred_translation_from_lang(obj, lang).title
+
+    def is_published_lang(self, obj):
+        """
+        This is a copy from the ``is_pubished`` method of the
+        ``MultilingualPublishMixin``. Only providing the mixin and adding
+        ``is_published`` would have resulted in adding the entry's field to the
+        list instead of using the mixin version.
+
+        """
+        languages = ''
+        for trans in obj.translations:
+            if trans.is_published:
+                if languages == '':
+                    languages = trans.language
+                else:
+                    languages += ', {0}'.format(trans.language)
+        if languages == '':
+            return _('Not published')
+        return languages
+    is_published_lang.short_description = _('Is published')
 
     def save_model(self, request, obj, form, change):
         """

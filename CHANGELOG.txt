@@ -1,5 +1,6 @@
 === ongoing ===
 
+- displaying the published state of each translation of Entry objects
 
 === 0.1.2 ===
 
